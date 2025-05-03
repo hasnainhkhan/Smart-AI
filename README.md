@@ -1,0 +1,1 @@
+Basic AI Model Ollama

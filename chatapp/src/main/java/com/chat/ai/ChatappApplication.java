@@ -1,4 +1,4 @@
-package com.ServiceRegistery;
+package com.chat.ai;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -2,34 +2,37 @@ package com.chat.ai.DTO;
 
 import java.util.List;
 
-public class ChatRequest {
+public class ChatResponse {
 
-    private String model;
-    private List<Message> messages;
+    private List<Choice> choices;
 
-    // Getter and Setter for model
-    public String getModel() {
-        return model;
+    // Getter and Setter
+    public List<Choice> getChoices() {
+        return choices;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setChoices(List<Choice> choices) {
+        this.choices = choices;
     }
 
-    // Getter and Setter for messages
-    public List<Message> getMessages() {
-        return messages;
+    public static class Choice {
+        private Message message;
+
+        // Getter and Setter
+        public Message getMessage() {
+            return message;
+        }
+
+        public void setMessage(Message message) {
+            this.message = message;
+        }
     }
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
-
-    // Message inner class
     public static class Message {
         private String role;
         private String content;
 
+        // Constructor
         public Message() {}
 
         public Message(String role, String content) {
@@ -37,6 +40,7 @@ public class ChatRequest {
             this.content = content;
         }
 
+        // Getters and Setters
         public String getRole() {
             return role;
         }

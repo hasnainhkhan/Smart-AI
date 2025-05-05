@@ -6,7 +6,6 @@ public class ChatResponse {
 
     private List<Choice> choices;
 
-    // Getter and Setter
     public List<Choice> getChoices() {
         return choices;
     }
@@ -16,45 +15,28 @@ public class ChatResponse {
     }
 
     public static class Choice {
-        private Message message;
+        private ChatMessage message;
 
-        // Getter and Setter
-        public Message getMessage() {
+        public ChatMessage getMessage() {
             return message;
         }
 
-        public void setMessage(Message message) {
+        public void setMessage(ChatMessage message) {
             this.message = message;
+        }
+
+        @Override
+        public String toString() {
+            return "Choice{" +
+                    "message=" + message +
+                    '}';
         }
     }
 
-    public static class Message {
-        private String role;
-        private String content;
-
-        // Constructor
-        public Message() {}
-
-        public Message(String role, String content) {
-            this.role = role;
-            this.content = content;
-        }
-
-        // Getters and Setters
-        public String getRole() {
-            return role;
-        }
-
-        public void setRole(String role) {
-            this.role = role;
-        }
-
-        public String getContent() {
-            return content;
-        }
-
-        public void setContent(String content) {
-            this.content = content;
-        }
+    @Override
+    public String toString() {
+        return "ChatResponse{" +
+                "choices=" + choices +
+                '}';
     }
 }

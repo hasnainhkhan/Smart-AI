@@ -119,6 +119,22 @@
             margin: 5px;
             cursor: pointer;
         }
+
+        /* Loader Spinner */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4CAF50;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            margin: auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -132,85 +148,85 @@
     <button id="stopButton">Stop Response</button>
 
     <div class="input-container">
-        <input type="text" id="promptInput" name="prompt" placeholder="Enter your message..." required/>
-        <input type="submit" value="Send" id="sendMessageButton"/>
+        <input type="text" id="promptInput" name="prompt" placeholder="Enter your message..." required />
+        <input type="submit" value="Send" id="sendMessageButton" />
     </div>
 </div>
 
 <script>
-	document.getElementById("sendMessageButton").addEventListener("click", function (e) {
-	    e.preventDefault(); // Prevent form reload
+    document.getElementById("sendMessageButton").addEventListener("click", function (e) {
+        e.preventDefault(); // Prevent form reload
 
-	    const promptInput = document.getElementById("promptInput");
-	    const prompt = promptInput.value;
-	    if (!prompt.trim()) return;
+        const promptInput = document.getElementById("promptInput");
+        const prompt = promptInput.value;
+        if (!prompt.trim()) return;
 
-	    const MAX_WORDS = 100; // Set your desired word limit
+        const MAX_WORDS = 100;
+        const wordCount = prompt.trim().split(/\s+/).length;
+        if (wordCount > MAX_WORDS) {
+            alert(`Please limit your input to ${MAX_WORDS} words.`);
+            return;
+        }
 
-	    // Split the prompt into words and check if the count exceeds the limit
-	    const wordCount = prompt.trim().split(/\s+/).length;
+        const chatBox = document.getElementById("chatBox");
+        let isResponseActive = true;
 
-	    if (wordCount > MAX_WORDS) {
-	        alert(`Please limit your input to ${MAX_WORDS} words.`);
-	        return;
-	    }
+        function stopResponse() {
+            isResponseActive = false;
+        }
 
-	    const chatBox = document.getElementById("chatBox");
-	    let isResponseActive = true;  // Flag to control response display
+        document.getElementById("stopButton").addEventListener("click", stopResponse);
 
-	    // Stop the response if the button is clicked
-	    function stopResponse() {
-	        isResponseActive = false;
-	    }
+        // Show user message
+        const userMessageDiv = document.createElement("div");
+        userMessageDiv.classList.add("response", "user-message");
+        userMessageDiv.innerHTML = `<p><strong>You:</strong> ${prompt}</p>`;
+        chatBox.appendChild(userMessageDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-	    document.getElementById("stopButton").addEventListener("click", stopResponse);
+        // Show loading spinner
+        const loaderDiv = document.createElement("div");
+        loaderDiv.classList.add("loader");
+        chatBox.appendChild(loaderDiv);
+        chatBox.scrollTop = chatBox.scrollHeight;
 
-	    // Show user message
-	    const userMessageDiv = document.createElement("div");
-	    userMessageDiv.classList.add("response", "user-message");
-	    userMessageDiv.innerHTML = `<p><strong>You:</strong> ${prompt}</p>`;
-	    chatBox.appendChild(userMessageDiv);
+        // Fetch AI response
+        fetch("/api/chat", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: new URLSearchParams({ prompt: prompt })
+        })
+        .then(response => response.text())
+        .then(aiResponse => {
+            loaderDiv.remove(); // Remove loader
 
-	    chatBox.scrollTop = chatBox.scrollHeight;
+            const aiMessageDiv = document.createElement("div");
+            aiMessageDiv.innerHTML = `<span id="typing-cursor">|</span>`;
+            aiMessageDiv.classList.add("response", "ai-message");
+            chatBox.appendChild(aiMessageDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-	    // Call backend API
-	    fetch("/api/chat", {
-	        method: "POST",
-	        headers: {
-	            "Content-Type": "application/x-www-form-urlencoded"
-	        },
-	        body: new URLSearchParams({ prompt: prompt })
-	    })
-	    .then(response => response.text())
-	    .then(aiResponse => {
-	        const aiMessageDiv = document.createElement("div");
-	        aiMessageDiv.innerHTML = `<span id="typing-cursor">|</span>`;
-	        aiMessageDiv.classList.add("response", "ai-message");
-	        chatBox.appendChild(aiMessageDiv);
-	        chatBox.scrollTop = chatBox.scrollHeight;
+            aiResponse = aiResponse.replace(/\*\*/g, '');
+            const words = aiResponse.split(" ");
+            let currentText = "";
+            let index = 0;
 
-	        // Remove ** from the API response
-	        aiResponse = aiResponse.replace(/\*\*/g, '');  // This removes all occurrences of **
+            const interval = setInterval(() => {
+                if (index < words.length && isResponseActive) {
+                    currentText += words[index] + " ";
+                    aiMessageDiv.textContent = currentText.trim();
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    index++;
+                } else {
+                    clearInterval(interval);
+                }
+            }, 150);
 
-	        const words = aiResponse.split(" ");
-	        let currentText = "";
-	        let index = 0;
-
-	        const interval = setInterval(() => {
-	            if (index < words.length && isResponseActive) {
-	                currentText += words[index] + " ";
-	                aiMessageDiv.textContent = currentText.trim();
-	                chatBox.scrollTop = chatBox.scrollHeight;
-	                index++;
-	            } else {
-	                clearInterval(interval);
-	            }
-	        }, 150); // delay between words (in milliseconds)
-
-	        promptInput.value = "";
-	    });
-	});
-
+            promptInput.value = "";
+        });
+    });
 </script>
 
 </body>

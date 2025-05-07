@@ -28,23 +28,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-		</dependency>
 
-
-		<!-- Spring Boot Starter Thymeleaf (for server-side rendering of views) -->
+        <!-- Spring Boot Starter Thymeleaf (for server-side rendering of views) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
 
-		<!-- Lombok for reducing boilerplate code (getters, setters, etc.) -->
+        <!-- Lombok for reducing boilerplate code (getters, setters, etc.) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -52,24 +43,31 @@
             <scope>provided</scope>
         </dependency>
 
-		<!-- Spring Boot Starter Test for testing purposes -->
+        <!-- Spring Boot Starter Test for testing purposes -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-		<!-- Optional: Jackson dependency for JSON processing (if needed explicitly) -->
+        <!-- Optional: Jackson dependency for JSON processing (if needed explicitly) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
 
-		<!-- Optional: Spring Boot WebFlux if you are using reactive features -->
-		<!-- <dependency>
+        <!-- Optional: Spring Boot Starter Logging (for logging and debugging purposes) -->
+        <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
-        </dependency> -->
+            <artifactId>spring-boot-starter-logging</artifactId>
+        </dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+
     </dependencies>
     
     <build>
@@ -81,5 +79,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

@@ -8,70 +8,59 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.chat.ai.DTO.ChatResponse;
+import java.util.*;
 
-import java.util.List;
-
-@Controller
+//For handling AI chat API (API controller)
+@RestController
+@RequestMapping("/api")
 public class Controllers {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    @Value("${netmind.api.url}")
+    @Value("${gemini.api.url}")
     private String apiUrl;
 
-    @Value("${netmind.api.key}")
+    @Value("${gemini.api.key}")
     private String apiKey;
 
-    // Endpoint for Home page
-    @GetMapping("/")
-    public String home() {
-        return "chat";
-    }
-
-    // Chat endpoint for posting prompt
     @PostMapping("/chat")
-    public String chat(@RequestParam("prompt") String prompt, Model model) {
-
-        // Check if the prompt is empty
+    @ResponseBody // this sends raw response for AJAX
+    public String chat(@RequestParam("prompt") String prompt) {
         if (prompt == null || prompt.trim().isEmpty()) {
-            model.addAttribute("error", "Prompt cannot be empty.");
-            return "chat";
+            return "Prompt cannot be empty.";
         }
 
-        // Create user message
-        com.chat.ai.DTO.ChatMessage userMessage = new com.chat.ai.DTO.ChatMessage("user", prompt);
+        // Gemini request body
+        Map<String, Object> part = Map.of("text", prompt);
+        Map<String, Object> content = Map.of("parts", List.of(part));
+        Map<String, Object> body = Map.of("contents", List.of(content));
 
-        // Build the chat request with updated model name
-        com.chat.ai.DTO.ChatRequest chatRequest = new com.chat.ai.DTO.ChatRequest("deepseek-ai/DeepSeek-R1", List.of(userMessage));
-
-        // Set headers for the request
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", apiKey);
 
-        // Create the HTTP entity for the request
-        HttpEntity<com.chat.ai.DTO.ChatRequest> requestEntity = new HttpEntity<>(chatRequest, headers);
+        // ✅ Do not use Bearer
+        String requestUrl = apiUrl + "?key=" + apiKey;
+
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
         try {
-            // Send the POST request and get the response
-            ResponseEntity<com.chat.ai.DTO.ChatResponse> response = restTemplate.postForEntity(apiUrl, requestEntity, com.chat.ai.DTO.ChatResponse.class);
-            com.chat.ai.DTO.ChatResponse responseBody = response.getBody();
+            ResponseEntity<Map> response = restTemplate.exchange(
+                    requestUrl,
+                    HttpMethod.POST,
+                    entity,
+                    Map.class
+            );
 
-            // Check if the response is valid
-            if (response.getStatusCode() == HttpStatus.OK && responseBody != null && responseBody.getChoices() != null && !responseBody.getChoices().isEmpty()) {
-                ChatResponse.Choice choice = responseBody.getChoices().get(0);
-                model.addAttribute("prompt", prompt);
-                model.addAttribute("response", choice.getMessage().getContent());
+            List<Map<String, Object>> candidates = (List<Map<String, Object>>) response.getBody().get("candidates");
+            if (candidates != null && !candidates.isEmpty()) {
+                Map<String, Object> contentMap = (Map<String, Object>) candidates.get(0).get("content");
+                List<Map<String, Object>> parts = (List<Map<String, Object>>) contentMap.get("parts");
+                return (String) parts.get(0).get("text");
             } else {
-                model.addAttribute("error", "No response from AI.");
+                return "No response from AI.";
             }
-
-        } catch (RestClientException e) {
-            model.addAttribute("error", "API request failed: " + e.getMessage());
-            e.printStackTrace();
+        } catch (Exception e) {
+            return "API error: " + e.getMessage();
         }
-
-        return "chat";
     }
 }

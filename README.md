@@ -46,5 +46,5 @@ ai-chat-rgb-animation/
 ├── script.js            # JavaScript for interactivity and animation
 └── README.md            # Project documentation (this file)
 
-![image](https://github.com/user-attachments/assets/831ee770-6b9d-4d8a-bb4e-afb39d795b58)
+![image](https://github.com/user-attachments/assets/d8e1a358-0e37-490e-8a73-28abc7994ba6)
 

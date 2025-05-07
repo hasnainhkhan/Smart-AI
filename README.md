@@ -37,6 +37,8 @@ The **AI Chat with RGB Animation** is a lightweight web application that simulat
 
 ### Clone the repository
 
+https://github.githubassets.com/assets/inbox-zero-86555dddc82e.svg
+
 ```bash
 git clone https://github.com/yourusername/ai-chat-rgb-animation.git
 

@@ -37,6 +37,7 @@ The **AI Chat with RGB Animation** is a lightweight web application that simulat
 
 ### Clone the repository 
 ## this app based on gemini ai
+## voice mode
 
 
 https://github.githubassets.com/assets/inbox-zero-86555dddc82e.svg

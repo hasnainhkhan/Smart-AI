@@ -21,7 +21,7 @@ public class SpeechController {
     @Autowired
     private TranscriptionResultRepository transcriptionResultRepository;
 
-    @GetMapping("/")
+    @GetMapping("/data")
     public String index(Model model) {
         model.addAttribute("results", transcriptionResultRepository.findAll());
         return "txtspeech";

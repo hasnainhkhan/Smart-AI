@@ -9,4 +9,8 @@ public class ViewController {
     public String home() {
         return "chat";
     }
+    @GetMapping("/")
+    public String dashboard() {
+    	return "dashboard";
+    }
 }

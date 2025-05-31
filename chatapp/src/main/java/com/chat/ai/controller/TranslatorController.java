@@ -23,7 +23,7 @@ public class TranslatorController {
     @Autowired
     private LanguageService languageService;
     
-    @GetMapping("/")
+    @GetMapping("/data")
     public String home(Model model) {
         model.addAttribute("request", new TranslationRequest());
 

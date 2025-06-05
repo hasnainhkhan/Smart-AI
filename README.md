@@ -1,4 +1,4 @@
-Basic AI Model Ollama
+Basic AI Model Ollama . 
 # AI Chat with RGB Animation
 
 This project is a simple **AI chat application** where users can interact with an AI model by sending text input. The AI responds with an animated typing effect, where each word appears in a **RGB color cycle** and transitions to black after 0.5 seconds. This is designed using **HTML**, **CSS**, and **JavaScript** to provide a smooth, interactive experience.

@@ -1,4 +1,4 @@
-# 🤖 AI Chat Assistant with Smart Tools (Spring Boot + Thymeleaf)
+# Smart ai Assistant tools (Spring Boot + Thymeleaf)
 
 A powerful, full-stack AI chat application built using **Java Spring Boot**, **Thymeleaf**, and integrated with **Microsoft AI Foundry**. The application enables real-time chat with AI and includes smart productivity tools like **language translation**, **voice-to-text**, **OCR image-to-text**, and **prompt-based text generation**.
 

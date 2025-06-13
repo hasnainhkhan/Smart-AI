@@ -11,7 +11,7 @@ A powerful, full-stack AI chat application built using **Java Spring Boot**, **T
 - 🎙️ **Voice Input** – Use microphone to convert speech into text
 - 🖼️ **OCR Image to Text** – Upload an image and extract readable text
 - ✍️ **Text Generator** – Generate summaries, content, or answers based on prompts
-- 🔒 **Spring Security (Optional)** – For user authentication and access control
+- 
 
 ---
 

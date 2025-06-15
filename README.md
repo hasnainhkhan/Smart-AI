@@ -87,6 +87,8 @@ Add your screenshots here, for example:
 
 Main chat interface
 
+![1750010449259.jpg](https://github.com/user-attachments/assets/312fe721-3a5c-48bf-b9dc-2b4c9ce84b58)
+
 Voice input field
 
 OCR image upload
@@ -104,5 +106,3 @@ Web APIs – Voice recognition and image handling
 
 📄 License
 Distributed under the MIT License. See LICENSE for more information.
-
-vr

@@ -5,7 +5,7 @@ A powerful, full-stack AI chat application built using **Java Spring Boot**, **T
 ----
 
 ## ✨ Features
-
+ s
 - 💬 **AI Chat Interface** – Chat with a smart AI assistant via web UI
 - 🌍 **Language Translator** – Translate user input or AI response to/from multiple languages
 - 🎙️ **Voice Input** – Use microphone to convert speech into text

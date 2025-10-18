@@ -23,6 +23,18 @@
 
   <dependencies>
   <!-- Web & Thymeleaf -->
+
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
@@ -32,13 +44,13 @@
     <artifactId>spring-boot-starter-thymeleaf</artifactId>
   </dependency>
 
-  <!-- WebClient for Azure Translator -->
+		<!-- WebClient for Azure Translator -->
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-webflux</artifactId>
   </dependency>
 
-  <!-- Data JPA & MySQL -->
+		<!-- Data JPA & MySQL -->
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -49,14 +61,14 @@
     <version>8.4.0</version>
   </dependency>
 
-  <!-- Azure Speech SDK -->
+		<!-- Azure Speech SDK -->
   <dependency>
     <groupId>com.microsoft.cognitiveservices.speech</groupId>
     <artifactId>client-sdk</artifactId>
     <version>1.37.0</version>
   </dependency>
 
-  <!-- JSON handling -->
+		<!-- JSON handling -->
   <dependency>
     <groupId>org.json</groupId>
     <artifactId>json</artifactId>
@@ -67,7 +79,7 @@
     <artifactId>jackson-databind</artifactId>
   </dependency>
 
-  <!-- Lombok -->
+		<!-- Lombok -->
 <dependency>
   <groupId>org.projectlombok</groupId>
   <artifactId>lombok</artifactId>
@@ -75,7 +87,7 @@
   <scope>provided</scope>
 </dependency>
 
-  	<!--for translate-->
+		<!--for translate-->
 		<dependency>
 			<groupId>com.azure</groupId>
 			<artifactId>azure-ai-translation-text</artifactId>
@@ -100,8 +112,8 @@
     <artifactId>spring-boot-starter-test</artifactId>
     <scope>test</scope>
   </dependency>
-  
-<!-- https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java -->
+
+		<!-- https://mvnrepository.com/artifact/io.github.cdimascio/dotenv-java -->
 		<dependency>
 			<groupId>io.github.cdimascio</groupId>
 			<artifactId>dotenv-java</artifactId>

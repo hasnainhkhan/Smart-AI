@@ -73,7 +73,7 @@
     <p><strong>To:</strong> <span th:text="${result.targetLanguage}"></span></p>
     <p><strong>Time:</strong> <span th:text="${#temporals.format(result.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
 
-    <a th:href="@{/translate/}" class="button-link">Translate Another</a>
+    <a th:href="@{/translate/data}" class="button-link">Translate Another</a>
 </div>
 <footer>
   © 2025 Hasnain Haidar. All rights reserved.
